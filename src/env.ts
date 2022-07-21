@@ -17,6 +17,8 @@ const env = cleanEnv(process.env, {
   SPOTIFY_REDIRECT_URL: str(),
   SPOTIFY_CLIENT_ID: str(),
   SPOTIFY_CLIENT_SECRET: str(),
+
+  DEFAULT_TG_STATUS: str(),
 });
 
 export default env;

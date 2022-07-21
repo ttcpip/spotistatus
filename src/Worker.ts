@@ -2,6 +2,7 @@ import { msToMMSS } from './helpers/msToMMSS';
 import logger from './logger';
 import { SpotifyClient } from './SpotifyClient';
 import { TgClient } from './TgClient/TgClient';
+import env from './env';
 
 export class Worker {
   private static WORK_TIMEOUT_MS = 15000;
@@ -13,16 +14,15 @@ export class Worker {
   private static async work() {
     try {
       const { body } = await SpotifyClient.instance.getMyCurrentPlayingTrack();
-      if (!(body.item?.type === 'track' && body.is_playing)) {
-        // TODO: set default status
-        return;
-      }
+      let status = env.DEFAULT_TG_STATUS;
 
-      const duration = msToMMSS(body.item.duration_ms);
-      const progress = msToMMSS(body.progress_ms || 0);
-      const song = body.item.name || '';
-      const artist = body.item.artists.map((e) => e.name).join(', ');
-      const status = `🎧 Spotify | ${artist} — ${song} | ${progress}/${duration}`;
+      if (body.item?.type === 'track' && body.is_playing) {
+        const duration = msToMMSS(body.item.duration_ms);
+        const progress = msToMMSS(body.progress_ms || 0);
+        const song = body.item.name;
+        const artist = body.item.artists.map((e) => e.name).join(', ');
+        status = `🎧 Spotify | ${artist} — ${song} | ${progress}/${duration}`;
+      }
 
       logger.info(`Set tg status: ${status}`);
       await TgClient.setBio(status);
