@@ -1,5 +1,5 @@
 {
-  "name": "tg-live-status-spotify",
+  "name": "tg-spotistatus",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -14,13 +14,17 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^16.0.1",
+    "enquirer": "^2.3.6",
     "envalid": "^7.3.1",
     "source-map-support": "^0.5.21",
+    "spotify-web-api-node": "^5.0.2",
+    "telegram": "^2.9.10",
     "winston": "^3.8.1",
     "winston-console-format": "^1.0.8"
   },
   "devDependencies": {
     "@types/node": "^16.11.33",
+    "@types/spotify-web-api-node": "^5.0.7",
     "@typescript-eslint/eslint-plugin": "^5.19.0",
     "@typescript-eslint/parser": "^5.19.0",
     "eslint": "^8.13.0",

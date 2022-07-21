@@ -21,6 +21,12 @@ const consoleTransport = new transports.Console({
   ),
 });
 
+const fileTransport = new transports.File({
+  level: env.LOG_LEVEL,
+  handleExceptions: true,
+  filename: env.LOG_FILE_PATH,
+});
+
 const logger = createLogger({
   levels: config.npm.levels,
   format: format.combine(
@@ -31,7 +37,10 @@ const logger = createLogger({
   ),
   exitOnError: false,
 
-  transports: [consoleTransport],
+  transports: [
+    consoleTransport,
+    ...(env.SHOULD_LOG_TO_FILE ? [fileTransport] : []),
+  ],
 });
 
 export default logger;

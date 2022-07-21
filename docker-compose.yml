@@ -1,0 +1,10 @@
+version: '3'
+services:
+  app:
+    image: ttcpip/node-app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    volumes:
+      - type: bind
+        source: ./data
+        target: /app/data

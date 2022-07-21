@@ -35,5 +35,8 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 *.env
-
 *.tsbuildinfo
+logs
+data/*/**
+!data/spotify-client/.gitkeep
+!data/tg-client/.gitkeep
