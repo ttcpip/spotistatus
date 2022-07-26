@@ -55,7 +55,7 @@ export class Worker {
       if (track) {
         const duration = msToMMSS(track.durationMs);
         const progress = msToMMSS(track.progressMs);
-        const song = track.artistsNames;
+        const song = track.songName;
         const artist = track.artistsNames.join(', ');
         status = `🎧 Spotify | ${artist} — ${song} | ${progress}/${duration}`;
       }
