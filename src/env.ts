@@ -19,6 +19,9 @@ const env = cleanEnv(process.env, {
   SPOTIFY_CLIENT_SECRET: str(),
 
   DEFAULT_TG_STATUS: str(),
+
+  PULL_PLAYING_TRACK_TIMEOUT_MS: num(),
+  SET_TG_STATUS_MIN_INTERVAL_MS: num(),
 });
 
 export default env;
