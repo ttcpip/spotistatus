@@ -8,7 +8,7 @@ import env from './env';
 export class Worker {
   private static periodicalUpdateCurrentPlayingTrackIntervalMs =
     env.PULL_PLAYING_TRACK_TIMEOUT_MS;
-  private static periodicalCheckUpdateTgStatusIntervalMs = 1500;
+  private static periodicalCheckUpdateTgStatusIntervalMs = 200;
 
   private static storage = new MemoryStorage();
   static async init() {
