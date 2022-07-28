@@ -20,8 +20,10 @@
     "source-map-support": "^0.5.21",
     "spotify-web-api-node": "^5.0.2",
     "telegram": "^2.9.10",
+    "telegram-format": "^2.1.0",
     "winston": "^3.8.1",
-    "winston-console-format": "^1.0.8"
+    "winston-console-format": "^1.0.8",
+    "winston-telegram": "^2.6.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.33",

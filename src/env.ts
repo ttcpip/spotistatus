@@ -11,6 +11,9 @@ const env = cleanEnv(process.env, {
     default: 'silly',
   }),
 
+  LOG_ERR_TG_BOT_TOKEN: str({ default: '' }),
+  LOG_ERR_TG_CHAT_ID: num({ default: 0 }),
+
   TG_API_ID: num(),
   TG_API_HASH: str(),
 
