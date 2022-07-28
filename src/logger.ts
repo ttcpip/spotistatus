@@ -19,6 +19,7 @@ const consoleTransport = () =>
   new transports.Console({
     level: env.LOG_LEVEL,
     handleExceptions: true,
+    stderrLevels: ['error'],
     format: format.combine(
       format.colorize({ all: true }),
       format.padLevels(),
