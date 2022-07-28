@@ -63,9 +63,9 @@ export class Worker {
       if (status === this.storage.data.lastSetTgStatus) return;
 
       logger.info(`Setting tg status: ${status}`);
-      await TgClient.setBio(status);
       this.storage.data.lastSetTgStatus = status;
       this.storage.data.lastTimeSetTgStatusMs = Date.now();
+      await TgClient.setBio(status);
     } catch (err) {
       logger.error(`Checking to update tg status error:`, err);
     } finally {
