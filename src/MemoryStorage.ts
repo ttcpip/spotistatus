@@ -5,5 +5,6 @@ export class MemoryStorage {
     currentPlayingTrack: null,
     lastSetTgStatus: null,
     lastTimeSetTgStatusMs: 0,
+    cantSetTgStatusUntilMs: 0,
   };
 }

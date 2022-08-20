@@ -4,6 +4,7 @@ import { TgClient } from './TgClient/TgClient';
 import { MemoryStorage } from './MemoryStorage';
 import logger from './logger';
 import env from './env';
+import { FloodWaitError } from 'telegram/errors';
 
 export class Worker {
   private static periodicalUpdateCurrentPlayingTrackIntervalMs =
@@ -45,7 +46,8 @@ export class Worker {
     try {
       if (
         Date.now() - this.storage.data.lastTimeSetTgStatusMs <
-        env.SET_TG_STATUS_MIN_INTERVAL_MS
+          env.SET_TG_STATUS_MIN_INTERVAL_MS ||
+        Date.now() < this.storage.data.cantSetTgStatusUntilMs
       )
         return; // goto finally block
 
@@ -67,7 +69,16 @@ export class Worker {
       this.storage.data.lastTimeSetTgStatusMs = Date.now();
       await TgClient.setBio(status);
     } catch (err) {
-      logger.error(`Checking to update tg status error:`, err);
+      if (err instanceof FloodWaitError) {
+        logger.error(
+          `Updating tg status flood error. Waiting ${err.seconds} seconds.`,
+          err,
+        );
+        this.storage.data.cantSetTgStatusUntilMs =
+          Date.now() + err.seconds * 1000;
+      } else {
+        logger.error(`Checking to update tg status error:`, err);
+      }
     } finally {
       setTimeout(
         this.periodicalCheckUpdateTgStatus.bind(this),
