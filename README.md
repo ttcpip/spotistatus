@@ -97,3 +97,9 @@ SET_TG_STATUS_MIN_INTERVAL_MS=13500
 2. Click **SHOW CLIENT SECRET** and copy `Client ID` and `Client Secret`
 3. Click **EDIT SETTINGS** and add `http://localhost/callback` to **Redirect URIs**, click **SAVE**
 4. Click **USERS AND ACCESS**, then **ADD NEW USER**, then write Name and email, click **ADD**
+
+## TODO:
+
+1. Use tg bot to set telegram and spotify account credentials
+2. Improve format of the errors logged to tg err bot
+3. Add the ability to stream current playing track to VK account
