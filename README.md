@@ -1,5 +1,11 @@
 # Spotistatus
 
+## What is it for?
+
+It can stream the current playing track from Spotify to Telegram account status
+
+![Image](./assets/readme.png)
+
 ## Before installation
 
 1. Install `Node.js` 16 LTS
