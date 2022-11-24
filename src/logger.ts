@@ -1,5 +1,6 @@
 import { createLogger, format, transports, config } from 'winston';
 import { consoleFormat } from 'winston-console-format';
+import { serializeError } from 'serialize-error';
 import TelegramLogger from 'winston-telegram';
 import { markdownv2 } from 'telegram-format';
 import env from './env';
@@ -10,7 +11,6 @@ const logger = createLogger({
     format.timestamp(),
     format.errors({ stack: true }),
     format.splat(),
-    format.json(),
   ),
   exitOnError: false,
 });
@@ -41,6 +41,11 @@ const fileTransport = () =>
     level: env.LOG_LEVEL,
     handleExceptions: true,
     filename: env.LOG_FILE_PATH,
+    format: format.combine(
+      format.json({
+        replacer: (_, value) => serializeError(value, { maxDepth: 7 }),
+      }),
+    ),
   });
 
 const tgTransport = () =>
@@ -52,7 +57,12 @@ const tgTransport = () =>
     batchingDelay: 500,
     parseMode: 'MarkdownV2',
     formatMessage(params, info) {
-      const msg = `[${params.level}] [${params.message}] ${info?.stack || ''}`;
+      const header = `${params.level}: ${params.message}`;
+      const serialized = serializeError(info, { maxDepth: 4 });
+      delete serialized.err?.stack;
+      delete serialized.timestamp;
+      delete serialized.level;
+      const msg = `${header}\n${JSON.stringify(serialized, null, 2)}`;
       return markdownv2.monospaceBlock(msg);
     },
   });

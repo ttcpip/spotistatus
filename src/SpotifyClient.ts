@@ -108,7 +108,7 @@ export class SpotifyClient {
         resp.body.expires_in * 0.95 * 1000,
       );
     } catch (err) {
-      logger.error(`Spotify client token refreshing error:`, err);
+      logger.error(`Spotify client token refreshing error:`, { err });
     }
   }
 }

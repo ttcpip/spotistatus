@@ -15,7 +15,7 @@ async function main() {
 }
 
 main().catch((err) => {
-  logger.error(`Error at main fn:`, err);
+  logger.error(`Error at main fn:`, { err });
   logger.error(`Terminating the app...`);
   process.exit(1);
 });

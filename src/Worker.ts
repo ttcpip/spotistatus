@@ -33,7 +33,7 @@ export class Worker {
         this.storage.data.currentPlayingTrack = null;
       }
     } catch (err) {
-      logger.error(`Updating current playing track error:`, err);
+      logger.error(`Updating current playing track error:`, { err });
     } finally {
       setTimeout(
         this.periodicalUpdateCurrentPlayingTrack.bind(this),
@@ -72,12 +72,12 @@ export class Worker {
       if (err instanceof FloodWaitError) {
         logger.error(
           `Updating tg status flood error. Waiting ${err.seconds} seconds.`,
-          err,
+          { err },
         );
         this.storage.data.cantSetTgStatusUntilMs =
           Date.now() + err.seconds * 1000;
       } else {
-        logger.error(`Checking to update tg status error:`, err);
+        logger.error(`Checking to update tg status error:`, { err });
       }
     } finally {
       setTimeout(

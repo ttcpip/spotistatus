@@ -30,7 +30,7 @@ export class TgClient {
       phoneCode: () => promptStr('Enter tg account auth code:'),
       password: () => promptStr('Enter tg account password', true),
       onError: (err) => {
-        logger.error(`Tg client error:`, err);
+        logger.error(`Tg client error:`, { err });
       },
     });
     this.instance.session.save();
